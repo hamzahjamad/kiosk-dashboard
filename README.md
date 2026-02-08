@@ -7,6 +7,47 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Kiosk Dashboard
+
+A Laravel-based kiosk dashboard for prayer times, weather, holidays, and backgrounds. The public dashboard is read-only; admin features (under `/admin`) require login.
+
+### Getting started (local)
+
+1. Copy `.env.example` to `.env` and set `APP_KEY`:
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+2. Optionally set `CALENDARIFIC_API_KEY` in `.env` for public holiday sync (Calendarific API).
+3. Run migrations and seed the database:
+   ```bash
+   php artisan migrate
+   php artisan db:seed
+   ```
+4. Default admin user (change password after first login):
+   - **Email:** `admin@kiosk.local`
+   - **Password:** `admin123`
+
+### Docker
+
+1. Copy the Docker env file and set `APP_KEY`:
+   ```bash
+   cp .env.docker .env
+   php artisan key:generate
+   ```
+   Or generate a key and paste it into `.env` as `APP_KEY=base64:...`.
+2. Start the stack:
+   ```bash
+   docker-compose up -d
+   ```
+   The entrypoint runs migrations, seeders, and the Laravel scheduler (weather and prayer sync). The app is served on the port set by `APP_PORT` (default 8080).
+
+### Mail
+
+Password reset sends an email via Laravel's mail system. Set `MAIL_MAILER` and your SMTP (or other) settings in `.env` for reset emails to be delivered; with the default `MAIL_MAILER=log`, reset links are only written to the log. Registration does not send an email verification; users can log in immediately after registering.
+
+---
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

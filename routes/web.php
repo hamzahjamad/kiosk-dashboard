@@ -39,21 +39,23 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-// Public API endpoints (read-only for dashboard)
-Route::prefix('api/holidays')->group(function () {
-    Route::get('/', [HolidayController::class, 'index']);
-});
+// Public API endpoints (read-only for dashboard, rate-limited)
+Route::middleware('throttle:60,1')->group(function () {
+    Route::prefix('api/holidays')->group(function () {
+        Route::get('/', [HolidayController::class, 'index']);
+    });
 
-Route::prefix('api/prayer')->group(function () {
-    Route::get('/times', [PrayerController::class, 'times']);
-});
+    Route::prefix('api/prayer')->group(function () {
+        Route::get('/times', [PrayerController::class, 'times']);
+    });
 
-Route::prefix('api/weather')->group(function () {
-    Route::get('/current', [WeatherController::class, 'current']);
-});
+    Route::prefix('api/weather')->group(function () {
+        Route::get('/current', [WeatherController::class, 'current']);
+    });
 
-Route::prefix('api/backgrounds')->group(function () {
-    Route::get('/', [BackgroundController::class, 'index']);
+    Route::prefix('api/backgrounds')->group(function () {
+        Route::get('/', [BackgroundController::class, 'index']);
+    });
 });
 
 // Protected API endpoints (create, update, delete)
