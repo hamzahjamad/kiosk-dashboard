@@ -67,5 +67,16 @@ jobs:
           cp .env.example .env
           php artisan key:generate
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install and build frontend assets
+        run: |
+          npm ci
+          npm run build
+
       - name: Run tests
         run: composer test
