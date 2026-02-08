@@ -1,0 +1,50 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Docker
+Dockerfile
+docker-compose*.yaml
+.dockerignore
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Dependencies (will be installed in container)
+/vendor
+/node_modules
+
+# Environment files (use docker-compose env instead)
+.env
+.env.*
+!.env.example
+
+# Storage (use volumes)
+/storage/*.key
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+
+# Testing
+/tests
+phpunit.xml
+.phpunit.result.cache
+
+# Documentation
+README.md
+CHANGELOG.md
+
+# Build artifacts
+/public/hot
+/public/storage
+/public/build
+
+# Misc
+.editorconfig
+.styleci.yml
+*.md
