@@ -162,7 +162,7 @@ class WeatherController extends Controller
                 }
             }
         } catch (\Exception $e) {
-            \Log::error('Weather API error: ' . $e->getMessage());
+            \Log::error('Weather API error: '.$e->getMessage());
         }
 
         return null;
@@ -179,10 +179,10 @@ class WeatherController extends Controller
             'temperature' => $unit === 'celsius' ? $weather['temp_c'] : $weather['temp_f'],
             'unit' => $unit === 'celsius' ? '°C' : '°F',
             'description' => $weather['description'],
-            'humidity' => $weather['humidity'] . '%',
-            'wind' => $unit === 'celsius' 
-                ? $weather['wind_kph'] . ' km/h' 
-                : $weather['wind_mph'] . ' mph',
+            'humidity' => $weather['humidity'].'%',
+            'wind' => $unit === 'celsius'
+                ? $weather['wind_kph'].' km/h'
+                : $weather['wind_mph'].' mph',
             'feels_like' => $unit === 'celsius' ? $weather['feels_like_c'] : $weather['feels_like_f'],
             'show_temperature' => $settings->show_temperature,
             'show_description' => $settings->show_description,

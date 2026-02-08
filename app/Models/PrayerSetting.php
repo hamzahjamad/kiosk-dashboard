@@ -63,8 +63,8 @@ class PrayerSetting extends Model
     public static function getSettings()
     {
         $settings = self::first();
-        
-        if (!$settings) {
+
+        if (! $settings) {
             $settings = self::create([
                 'city' => 'Labuan',
                 'country' => 'Malaysia',
@@ -72,7 +72,7 @@ class PrayerSetting extends Model
                 'method_name' => 'JAKIM',
             ]);
         }
-        
+
         return $settings;
     }
 }

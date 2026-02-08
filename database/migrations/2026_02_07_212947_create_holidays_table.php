@@ -21,7 +21,7 @@ return new class extends Migration
             $table->boolean('is_visible')->default(true);
             $table->text('notes')->nullable();
             $table->timestamps();
-            
+
             $table->index('date');
             $table->index('is_visible');
             $table->unique(['date', 'name']);

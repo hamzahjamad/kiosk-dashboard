@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('sort_order')->default(0);
             $table->boolean('is_visible')->default(true);
             $table->timestamps();
-            
+
             $table->index('is_visible');
             $table->index('sort_order');
         });

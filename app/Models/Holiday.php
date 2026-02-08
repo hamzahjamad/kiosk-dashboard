@@ -36,9 +36,9 @@ class Holiday extends Model
     {
         $today = now()->startOfDay();
         $endDate = now()->addDays($days)->endOfDay();
-        
+
         return $query->whereBetween('date', [$today, $endDate])
-                     ->orderBy('date', 'asc');
+            ->orderBy('date', 'asc');
     }
 
     /**

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Holiday;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 
 class HolidayController extends Controller
 {
@@ -33,7 +33,7 @@ class HolidayController extends Controller
 
         return response()->json([
             'success' => true,
-            'holidays' => $holidays
+            'holidays' => $holidays,
         ]);
     }
 
@@ -54,7 +54,7 @@ class HolidayController extends Controller
 
         return response()->json([
             'success' => true,
-            'holidays' => $holidays
+            'holidays' => $holidays,
         ]);
     }
 
@@ -85,7 +85,7 @@ class HolidayController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Holiday added successfully',
-            'holiday' => $holiday
+            'holiday' => $holiday,
         ]);
     }
 
@@ -95,13 +95,13 @@ class HolidayController extends Controller
     public function toggleVisibility(Holiday $holiday)
     {
         $holiday->update([
-            'is_visible' => !$holiday->is_visible
+            'is_visible' => ! $holiday->is_visible,
         ]);
 
         return response()->json([
             'success' => true,
             'message' => $holiday->is_visible ? 'Holiday is now visible' : 'Holiday is now hidden',
-            'holiday' => $holiday
+            'holiday' => $holiday,
         ]);
     }
 
@@ -113,7 +113,7 @@ class HolidayController extends Controller
         if ($holiday->source !== 'manual') {
             return response()->json([
                 'success' => false,
-                'message' => 'Cannot delete API holidays. Use hide instead.'
+                'message' => 'Cannot delete API holidays. Use hide instead.',
             ], 400);
         }
 
@@ -121,7 +121,7 @@ class HolidayController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Holiday deleted successfully'
+            'message' => 'Holiday deleted successfully',
         ]);
     }
 
@@ -134,7 +134,7 @@ class HolidayController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => "Synced {$count} holidays from API"
+            'message' => "Synced {$count} holidays from API",
         ]);
     }
 
@@ -143,9 +143,9 @@ class HolidayController extends Controller
      */
     private function syncFromApiIfNeeded()
     {
-        $cacheKey = 'holidays_synced_' . date('Y-m-d');
-        
-        if (!Cache::has($cacheKey)) {
+        $cacheKey = 'holidays_synced_'.date('Y-m-d');
+
+        if (! Cache::has($cacheKey)) {
             $this->syncFromApi();
             Cache::put($cacheKey, true, now()->endOfDay());
         }
@@ -157,14 +157,14 @@ class HolidayController extends Controller
     private function syncFromApi()
     {
         $apiKey = env('CALENDARIFIC_API_KEY');
-        
+
         if (empty($apiKey)) {
             return 0;
         }
 
         $count = 0;
         $years = [date('Y')];
-        
+
         // Also fetch next year if we're in the last 2 months
         if (date('n') >= 11) {
             $years[] = date('Y') + 1;
@@ -176,22 +176,22 @@ class HolidayController extends Controller
                     'api_key' => $apiKey,
                     'country' => 'MY',
                     'year' => $year,
-                    'type' => 'national,observance'
+                    'type' => 'national,observance',
                 ]);
 
                 if ($response->successful()) {
                     $data = $response->json();
-                    
+
                     if (isset($data['response']['holidays'])) {
                         foreach ($data['response']['holidays'] as $holiday) {
                             $date = $holiday['date']['iso'];
-                            
+
                             // Check if this holiday already exists (by date and name)
                             $existing = Holiday::where('date', $date)
                                 ->where('name', $holiday['name'])
                                 ->first();
 
-                            if (!$existing) {
+                            if (! $existing) {
                                 Holiday::create([
                                     'name' => $holiday['name'],
                                     'date' => $date,
@@ -206,7 +206,7 @@ class HolidayController extends Controller
                     }
                 }
             } catch (\Exception $e) {
-                \Log::error('Calendarific sync error: ' . $e->getMessage());
+                \Log::error('Calendarific sync error: '.$e->getMessage());
             }
         }
 
@@ -218,11 +218,11 @@ class HolidayController extends Controller
      */
     public function clearCache()
     {
-        Cache::forget('holidays_synced_' . date('Y-m-d'));
-        
+        Cache::forget('holidays_synced_'.date('Y-m-d'));
+
         return response()->json([
             'success' => true,
-            'message' => 'Cache cleared. Holidays will be re-synced on next request.'
+            'message' => 'Cache cleared. Holidays will be re-synced on next request.',
         ]);
     }
 }

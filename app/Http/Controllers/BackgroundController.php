@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Background;
 use App\Models\BackgroundSetting;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class BackgroundController extends Controller
@@ -20,7 +19,7 @@ class BackgroundController extends Controller
 
         return response()->json([
             'success' => true,
-            'backgrounds' => $backgrounds->map(fn($bg) => [
+            'backgrounds' => $backgrounds->map(fn ($bg) => [
                 'id' => $bg->id,
                 'url' => $bg->url,
             ]),
@@ -90,18 +89,18 @@ class BackgroundController extends Controller
 
         $file = $request->file('image');
         $originalName = $file->getClientOriginalName();
-        $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
-        
+        $filename = Str::uuid().'.'.$file->getClientOriginalExtension();
+
         // Store in public/images/backgrounds
         $path = $file->move(public_path('images/backgrounds'), $filename);
-        
+
         // Get max sort order
         $maxOrder = Background::max('sort_order') ?? 0;
 
         $background = Background::create([
             'filename' => $filename,
             'original_name' => $originalName,
-            'path' => 'images/backgrounds/' . $filename,
+            'path' => 'images/backgrounds/'.$filename,
             'sort_order' => $maxOrder + 1,
             'is_visible' => true,
         ]);
@@ -119,7 +118,7 @@ class BackgroundController extends Controller
     public function toggleVisibility(Background $background)
     {
         $background->update([
-            'is_visible' => !$background->is_visible,
+            'is_visible' => ! $background->is_visible,
         ]);
 
         return response()->json([
@@ -174,20 +173,20 @@ class BackgroundController extends Controller
     public function seedFromFilesystem()
     {
         $path = public_path('images/backgrounds');
-        
-        if (!is_dir($path)) {
+
+        if (! is_dir($path)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Backgrounds directory not found',
             ]);
         }
 
-        $files = glob($path . '/*.{jpg,jpeg,png,webp}', GLOB_BRACE);
+        $files = glob($path.'/*.{jpg,jpeg,png,webp}', GLOB_BRACE);
         $added = 0;
 
         foreach ($files as $index => $file) {
             $filename = basename($file);
-            
+
             // Skip if already exists
             if (Background::where('filename', $filename)->exists()) {
                 continue;
@@ -196,11 +195,11 @@ class BackgroundController extends Controller
             Background::create([
                 'filename' => $filename,
                 'original_name' => $filename,
-                'path' => 'images/backgrounds/' . $filename,
+                'path' => 'images/backgrounds/'.$filename,
                 'sort_order' => $index,
                 'is_visible' => true,
             ]);
-            
+
             $added++;
         }
 

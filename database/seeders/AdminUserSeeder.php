@@ -16,6 +16,7 @@ class AdminUserSeeder extends Seeder
         // Check if admin already exists
         if (User::where('email', 'admin@kiosk.local')->exists()) {
             $this->command->info('Admin user already exists, skipping.');
+
             return;
         }
 

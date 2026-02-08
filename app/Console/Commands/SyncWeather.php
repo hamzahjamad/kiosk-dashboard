@@ -58,15 +58,18 @@ class SyncWeather extends Command
                     ]);
 
                     $this->info("Weather synced: {$weather['temp_c']}°C, {$weather['description']}");
+
                     return Command::SUCCESS;
                 }
             }
 
             $this->error('Failed to fetch weather data');
+
             return Command::FAILURE;
 
         } catch (\Exception $e) {
-            $this->error('Error: ' . $e->getMessage());
+            $this->error('Error: '.$e->getMessage());
+
             return Command::FAILURE;
         }
     }

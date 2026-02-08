@@ -14,14 +14,14 @@ class PrayerController extends Controller
     public function times()
     {
         $settings = PrayerSetting::getSettings();
-        
+
         // Check if we have cached times for today
         if ($settings->cached_date && $settings->cached_date->isToday() && $settings->cached_times) {
             $times = $settings->cached_times;
         } else {
             // Fetch from API and cache
             $times = $this->fetchFromApi($settings);
-            
+
             if ($times) {
                 $settings->update([
                     'cached_times' => $times,
@@ -50,7 +50,7 @@ class PrayerController extends Controller
         return response()->json([
             'success' => true,
             'times' => $visibleTimes,
-            'location' => $settings->city . ', ' . $settings->country,
+            'location' => $settings->city.', '.$settings->country,
             'method' => $settings->method_name,
         ]);
     }
@@ -61,7 +61,7 @@ class PrayerController extends Controller
     public function settings()
     {
         $settings = PrayerSetting::getSettings();
-        
+
         return response()->json([
             'success' => true,
             'settings' => $settings,
@@ -88,10 +88,10 @@ class PrayerController extends Controller
         ]);
 
         $settings = PrayerSetting::getSettings();
-        
+
         // Clear cache if location or method changed
-        if ($settings->city !== $validated['city'] || 
-            $settings->country !== $validated['country'] || 
+        if ($settings->city !== $validated['city'] ||
+            $settings->country !== $validated['country'] ||
             $settings->method !== $validated['method']) {
             $validated['cached_times'] = null;
             $validated['cached_date'] = null;
@@ -150,10 +150,10 @@ class PrayerController extends Controller
 
             if ($response->successful()) {
                 $data = $response->json();
-                
+
                 if (isset($data['data']['timings'])) {
                     $timings = $data['data']['timings'];
-                    
+
                     return [
                         'subuh' => $this->formatTime($timings['Fajr']),
                         'syuruk' => $this->formatTime($timings['Sunrise']),
@@ -165,7 +165,7 @@ class PrayerController extends Controller
                 }
             }
         } catch (\Exception $e) {
-            \Log::error('Aladhan API error: ' . $e->getMessage());
+            \Log::error('Aladhan API error: '.$e->getMessage());
         }
 
         return null;

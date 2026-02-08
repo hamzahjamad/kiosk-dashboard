@@ -19,20 +19,23 @@ class BackgroundSeeder extends Seeder
         // Skip if backgrounds already exist
         if (Background::count() > 0) {
             $this->command->info('Backgrounds already exist, skipping import.');
+
             return;
         }
 
         $path = public_path('images/backgrounds');
 
-        if (!is_dir($path)) {
-            $this->command->warn('Backgrounds directory not found: ' . $path);
+        if (! is_dir($path)) {
+            $this->command->warn('Backgrounds directory not found: '.$path);
+
             return;
         }
 
-        $files = glob($path . '/*.{jpg,jpeg,png,webp}', GLOB_BRACE);
+        $files = glob($path.'/*.{jpg,jpeg,png,webp}', GLOB_BRACE);
 
         if (empty($files)) {
             $this->command->info('No background images found to import.');
+
             return;
         }
 
@@ -42,7 +45,7 @@ class BackgroundSeeder extends Seeder
             Background::create([
                 'filename' => $filename,
                 'original_name' => $filename,
-                'path' => 'images/backgrounds/' . $filename,
+                'path' => 'images/backgrounds/'.$filename,
                 'sort_order' => $index,
                 'is_visible' => true,
             ]);
@@ -50,6 +53,6 @@ class BackgroundSeeder extends Seeder
             $this->command->info("Imported: {$filename}");
         }
 
-        $this->command->info('Imported ' . count($files) . ' background images.');
+        $this->command->info('Imported '.count($files).' background images.');
     }
 }

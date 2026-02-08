@@ -25,7 +25,7 @@ class BackgroundSetting extends Model
     {
         $settings = self::first();
 
-        if (!$settings) {
+        if (! $settings) {
             $settings = self::create([
                 'slide_interval' => 10,
                 'transition_duration' => 2,

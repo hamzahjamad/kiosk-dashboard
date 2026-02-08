@@ -33,8 +33,8 @@ class WeatherSetting extends Model
     public static function getSettings()
     {
         $settings = self::first();
-        
-        if (!$settings) {
+
+        if (! $settings) {
             $settings = self::create([
                 'city' => 'Labuan',
                 'country' => 'Malaysia',
@@ -45,7 +45,7 @@ class WeatherSetting extends Model
                 'show_wind' => false,
             ]);
         }
-        
+
         return $settings;
     }
 
@@ -65,7 +65,7 @@ class WeatherSetting extends Model
      */
     public function isCacheValid()
     {
-        if (!$this->cached_at || !$this->cached_weather) {
+        if (! $this->cached_at || ! $this->cached_weather) {
             return false;
         }
 

@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BackgroundController;
 use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\PrayerController;
-use App\Http\Controllers\WeatherController;
-use App\Http\Controllers\BackgroundController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WeatherController;
+use Illuminate\Support\Facades\Route;
 
 // Public routes
 Route::get('/', function () {

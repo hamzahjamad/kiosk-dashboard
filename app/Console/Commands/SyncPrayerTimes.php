@@ -71,10 +71,12 @@ class SyncPrayerTimes extends Command
             }
 
             $this->error('Failed to fetch prayer times');
+
             return Command::FAILURE;
 
         } catch (\Exception $e) {
-            $this->error('Error: ' . $e->getMessage());
+            $this->error('Error: '.$e->getMessage());
+
             return Command::FAILURE;
         }
     }
