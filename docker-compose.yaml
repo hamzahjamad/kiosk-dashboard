@@ -21,6 +21,7 @@ services:
       - DB_USERNAME=kiosk
       - DB_PASSWORD=${DB_PASSWORD:-secret}
       - CALENDARIFIC_API_KEY=${CALENDARIFIC_API_KEY:-}
+      - RUN_SEED=${RUN_SEED:-}
     depends_on:
       db:
         condition: service_healthy

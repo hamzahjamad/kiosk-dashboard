@@ -16,9 +16,13 @@ echo "Database is ready!"
 echo "Running migrations..."
 php artisan migrate --force
 
-# Run seeders
-echo "Running seeders..."
-php artisan db:seed --force
+# Run seeders only when RUN_SEED is set (e.g. first deploy or local)
+if [ "$RUN_SEED" = "true" ]; then
+    echo "Running seeders..."
+    php artisan db:seed --force
+else
+    echo "Skipping seeders (set RUN_SEED=true to run on startup, or run: docker exec <container> php artisan db:seed --force)"
+fi
 
 # Clear and cache config for production
 echo "Optimizing application..."

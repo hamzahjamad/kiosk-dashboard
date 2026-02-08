@@ -80,5 +80,9 @@ RUN mkdir -p /var/log/supervisor
 # Expose port
 EXPOSE 80
 
+# Health check for orchestrators
+HEALTHCHECK --interval=30s --timeout=5s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost/ || exit 1
+
 # Use entrypoint script
 ENTRYPOINT ["/entrypoint.sh"]
