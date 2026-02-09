@@ -24,13 +24,17 @@ RUN apk add --no-cache \
     unzip \
     git \
     oniguruma-dev \
-    mysql-client
+    mysql-client \
+    sqlite-dev \
+    postgresql-dev
 
 # Install PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) \
     pdo \
     pdo_mysql \
+    pdo_sqlite \
+    pdo_pgsql \
     mbstring \
     exif \
     pcntl \
