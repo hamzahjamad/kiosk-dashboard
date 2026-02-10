@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // When APP_URL is HTTPS (e.g. behind a proxy), force all generated URLs to use https
+        // so asset(), route(), url() etc. output https instead of the incoming request scheme.
+        $appUrl = config('app.url');
+        if ($appUrl && str_starts_with($appUrl, 'https://')) {
+            URL::forceScheme('https');
+        }
     }
 }
