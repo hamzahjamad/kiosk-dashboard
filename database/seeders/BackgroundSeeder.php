@@ -31,7 +31,12 @@ class BackgroundSeeder extends Seeder
             return;
         }
 
-        $files = glob($path.'/*.{jpg,jpeg,png,webp}', GLOB_BRACE);
+        $extensions = ['jpg', 'jpeg', 'png', 'webp'];
+        $files = [];
+        foreach ($extensions as $ext) {
+            $files = array_merge($files, glob($path.'/*.'.$ext) ?: []);
+        }
+        $files = array_values(array_unique($files));
 
         if (empty($files)) {
             $this->command->info('No background images found to import.');
