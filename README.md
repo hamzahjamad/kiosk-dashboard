@@ -4,7 +4,7 @@
 [![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?logo=laravel&logoColor=white)](https://laravel.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A kiosk dashboard for prayer times, weather, holidays, and backgrounds. 
+A kiosk dashboard for prayer times, weather, and holidays. 
 
 **Features:**
 
