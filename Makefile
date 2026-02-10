@@ -1,4 +1,4 @@
-.PHONY: help build up down restart logs shell db-shell migrate fresh seed
+.PHONY: help build up down restart logs shell db-shell migrate fresh seed screenshots
 
 # Default target
 help:
@@ -17,6 +17,7 @@ help:
 	@echo "  migrate    Run database migrations"
 	@echo "  fresh      Fresh migrate with seed"
 	@echo "  sync       Run weather and prayer sync"
+	@echo "  screenshots Capture demo screenshots and regenerate docs/screenshots.md (app must be running)"
 
 # Build Docker images
 build:
@@ -69,3 +70,7 @@ clear:
 	docker-compose exec app php artisan cache:clear
 	docker-compose exec app php artisan view:clear
 	docker-compose exec app php artisan route:clear
+
+# Capture demo screenshots and regenerate docs/screenshots.md (app must be running, e.g. composer run dev)
+screenshots:
+	npm run screenshots

@@ -1,0 +1,12 @@
+{
+  "baseUrl": "http://127.0.0.1:8000",
+  "screenshots": [
+    { "url": "/", "filename": "dashboard.png", "caption": "Public dashboard" },
+    { "url": "/login", "filename": "login.png", "caption": "Login page" },
+    { "url": "/admin/prayer", "filename": "admin-prayer.png", "caption": "Admin – Prayer settings", "requiresAuth": true },
+    { "url": "/admin/weather", "filename": "admin-weather.png", "caption": "Admin – Weather settings", "requiresAuth": true },
+    { "url": "/admin/backgrounds", "filename": "admin-backgrounds.png", "caption": "Admin – Backgrounds", "requiresAuth": true },
+    { "url": "/admin/users", "filename": "admin-users.png", "caption": "Admin – User management", "requiresAuth": true }
+  ],
+  "login": { "url": "/login" }
+}

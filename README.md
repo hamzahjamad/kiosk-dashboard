@@ -13,6 +13,8 @@ A kiosk dashboard for prayer times, weather, holidays, and backgrounds. The publ
 - **Holidays:** optional [Calendarific](https://calendarific.com/) API for public holiday sync; without it, manage holidays manually in Admin → Holidays.
 - **Data sync:** prayer times and weather are synced by scheduled jobs; configure sources in Admin → Prayer and Admin → Weather.
 
+For a visual overview of the dashboard and admin, see [Screenshots](docs/screenshots.md).
+
 ### Prerequisites (local)
 
 - PHP 8.2+, [Composer](https://getcomposer.org/), Node.js and npm.
@@ -82,7 +84,7 @@ Run the test suite with `composer run test` or `php artisan test`.
 
 ### For maintainers
 
-If you fork this repository and want to build and publish your own images to Docker Hub, the workflow is set up so images are built and pushed via GitHub Actions.
+If you fork this repository and want to build and publish your own images to Docker Hub, the workflow is set up so images are built and pushed via GitHub Actions. To refresh the screenshots doc and images, run `composer run screenshots`, `make screenshots`, or `npm run screenshots` (app must be running; ensure `npm install` and `npx playwright install chromium` have been run once). For admin screenshots, set `SCREENSHOT_LOGIN_EMAIL` and `SCREENSHOT_LOGIN_PASSWORD` (default seeded admin: `admin@kiosk.local` / `admin123` — see [AdminUserSeeder](database/seeders/AdminUserSeeder.php)).
 
 **Required GitHub Actions secrets** (Settings → Secrets and variables → Actions):
 

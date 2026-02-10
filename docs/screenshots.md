@@ -1,0 +1,39 @@
+# Screenshots
+
+This page is generated automatically. To regenerate it:
+
+**Prerequisites (once per machine)**
+
+- Install the browser: run **`npx playwright install chromium`** from the project root.
+- For admin screenshots, set env vars **`SCREENSHOT_LOGIN_EMAIL`** and **`SCREENSHOT_LOGIN_PASSWORD`** (e.g. in `.env` or on the command line). Use the seeded admin: **`admin@kiosk.local`** / **`admin123`**.
+
+**Steps each time**
+
+1. Start the app (e.g. **`composer run dev`** or **`make up`**). Leave it running.
+2. In another terminal, from the **project root**, run: **`npm run screenshots`** (or **`make screenshots`** or **`composer run screenshots`**).
+3. This script overwrites the images in `docs/screenshots/` and this file.
+
+### Public dashboard
+
+![Public dashboard](screenshots/dashboard.png)
+
+### Login page
+
+![Login page](screenshots/login.png)
+
+### Admin – Prayer settings
+
+![Admin – Prayer settings](screenshots/admin-prayer.png)
+
+### Admin – Weather settings
+
+![Admin – Weather settings](screenshots/admin-weather.png)
+
+### Admin – Backgrounds
+
+![Admin – Backgrounds](screenshots/admin-backgrounds.png)
+
+### Admin – User management
+
+![Admin – User management](screenshots/admin-users.png)
+
